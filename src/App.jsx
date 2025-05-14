@@ -1,25 +1,20 @@
 import { createRoot } from "react-dom/client";
-import Pizza from "./Pizza";
+import { CartContext } from "./contexts";
 import Order from "./Order";
 import PizzaoftheDay from "./PizzaoftheDay";
+import Header from "./Header";
+import { useState } from "react";
 
 const WebApp = () => {
+  const cartHook = useState([]);
   return (
-    <div>
-      <h1>Ristorante Pizza</h1>
-      <Order />
-      <PizzaoftheDay />
-      {/* <Pizza
-        name="Hawaiian Pizza"
-        description="Pineapple, Ham, Cheese"
-        image={"/public/pizzas/hawaiian.webp"}
-      />
-      <Pizza
-        name="The Pepperoni Pizza"
-        description="Pepperoni, Secret Sauce, Cheese"
-        image={"/public/pizzas/pepperoni.webp"}
-      /> */}
-    </div>
+    <CartContext.Provider value={cartHook}>
+      <div>
+        <Header />
+        <Order />
+        <PizzaoftheDay />
+      </div>
+    </CartContext.Provider>
   );
 };
 
