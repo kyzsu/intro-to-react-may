@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Pizza from "./Pizza";
+import Cart from "./Cart";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -12,6 +13,24 @@ export default function Order() {
   const [pizzaSize, setPizzaSize] = useState("S");
   const [pizzaTypes, setPizzaTypes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [cart, setCart] = useState([]);
+
+  async function checkout() {
+    setLoading(true);
+
+    await fetch("/api/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart,
+      }),
+    });
+
+    setCart([]);
+    setLoading(false);
+  }
 
   // useEffect menerima dua argumen/parameter, pertama adalah callback (fungsi), kedua adalah dependency (fungsi ini berjalan kalo .../hal apa yg menginisiasi callback). Jika dependency diberi array kosong maka callback akan dijalankan setelah halaman pertama kali dibuka (selesai dirender).
   useEffect(() => {
@@ -36,7 +55,12 @@ export default function Order() {
   return (
     <div className="order">
       <h2>Buat Order</h2>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setCart([...cart, { pizza: selectedPizza, size: pizzaSize, price }]);
+        }}
+      >
         <div>
           <div>
             <label htmlFor="pizza-type">Jenis Pizza</label>
@@ -116,6 +140,7 @@ export default function Order() {
           </div>
         )}
       </form>
+      {loading ? <h2>Loading...</h2> : <Cart cart={cart} checkout={checkout} />}
     </div>
   );
 }
