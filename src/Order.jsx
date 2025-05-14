@@ -94,14 +94,27 @@ export default function Order() {
           </div>
           <button type="submit">Tambahkan ke keranjang</button>
         </div>
-        <div>
+        {/* <div>
           <Pizza
             name="Hawaiian Pizza"
             description="Pineapple, Ham, Cheese"
             image={"/public/pizzas/hawaiian.webp"}
           />
           <p>$10</p>
-        </div>
+        </div> */}
+        {/* {kondisi ? valueJikaTrue : valueJikaFalse } */}
+        {loading ? (
+          <h3>Loading...</h3>
+        ) : (
+          <div className="order-pizza">
+            <Pizza
+              name={selectedPizza.name}
+              description={selectedPizza.description}
+              image={selectedPizza.image}
+            />
+            <p>{price}</p>
+          </div>
+        )}
       </form>
     </div>
   );
