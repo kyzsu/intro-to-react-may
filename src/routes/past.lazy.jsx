@@ -33,7 +33,7 @@ function PastOrdersRoute() {
     staleTime: 24 * 60 * 60 * 1000,
   });
 
-  throw new Error("haha terjadi error");
+  // throw new Error("haha terjadi error");
 
   if (isLoading) {
     return (
