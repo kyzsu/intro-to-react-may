@@ -1,21 +1,11 @@
 import { createRoot } from "react-dom/client";
-import { CartContext } from "./contexts";
-import Order from "./Order";
-import PizzaoftheDay from "./PizzaoftheDay";
-import Header from "./Header";
-import { useState } from "react";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+
+import { routeTree } from "./routeTree.gen";
 
 const WebApp = () => {
-  const cartHook = useState([]);
-  return (
-    <CartContext.Provider value={cartHook}>
-      <div>
-        <Header />
-        <Order />
-        <PizzaoftheDay />
-      </div>
-    </CartContext.Provider>
-  );
+  const router = createRouter({ routeTree });
+  return <RouterProvider router={router} />;
 };
 
 // kita membuat sebuah element React: div yang berisi teks hello World!

@@ -1,14 +1,20 @@
 import { useState, useEffect, useContext } from "react";
-import { CartContext } from "./contexts";
-import Pizza from "./Pizza";
-import Cart from "./Cart";
+import { createLazyFileRoute } from "@tanstack/react-router";
+
+import Cart from "../Cart";
+import Pizza from "../Pizza";
+import { CartContext } from "../contexts";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
 
-export default function Order() {
+export const Route = createLazyFileRoute("/order")({
+  component: Order,
+});
+
+function Order() {
   // useState return dua value [a, b]; pertama (a) adalah value dari useState itu sendiri dalam hal ini "hawaiian", sedangkan value kedua (b) adalah fungsi untuk mengubah/memperbarui value
   const [pizzaType, setPizzaType] = useState("hawaiian");
   const [pizzaSize, setPizzaSize] = useState("S");
