@@ -5,9 +5,10 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import getPastOrders from "../api/getPastOrders";
 import getPastOrder from "../api/getPastOrder";
 import Modal from "../Modal";
+import ErrorBoundary from "../ErrorBoundary";
 
 export const Route = createLazyFileRoute("/past")({
-  component: PastOrdersRoute,
+  component: ErrorBoundaryWrappedPastOrderRoute,
 });
 
 const currency = new Intl.NumberFormat("en-US", {
@@ -31,6 +32,8 @@ function PastOrdersRoute() {
     enabled: !!selectedOrder,
     staleTime: 24 * 60 * 60 * 1000,
   });
+
+  throw new Error("haha terjadi error");
 
   if (isLoading) {
     return (
@@ -110,5 +113,13 @@ function PastOrdersRoute() {
         </Modal>
       ) : null}
     </div>
+  );
+}
+
+function ErrorBoundaryWrappedPastOrderRoute() {
+  return (
+    <ErrorBoundary>
+      <PastOrdersRoute />
+    </ErrorBoundary>
   );
 }
