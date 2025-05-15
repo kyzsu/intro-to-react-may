@@ -1,11 +1,17 @@
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { routeTree } from "./routeTree.gen";
 
 const WebApp = () => {
   const router = createRouter({ routeTree });
-  return <RouterProvider router={router} />;
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 };
 
 // kita membuat sebuah element React: div yang berisi teks hello World!
