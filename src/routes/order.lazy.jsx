@@ -5,6 +5,8 @@ import Cart from "../Cart";
 import Pizza from "../Pizza";
 import { CartContext } from "../contexts";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
@@ -25,7 +27,7 @@ function Order() {
   async function checkout() {
     setLoading(true);
 
-    await fetch("/api/order", {
+    await fetch(`${apiURL}/api/order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +55,7 @@ function Order() {
   }
 
   async function fetchPizzaTypes() {
-    const res = await fetch("/api/pizzas");
+    const res = await fetch(`${apiURL}/api/pizzas`);
     const resJson = await res.json();
     setPizzaTypes(resJson);
     setLoading(false);

@@ -1,5 +1,6 @@
 export default async function postContactUs(name, email, message) {
-  const res = await fetch("/api/contact", {
+  const apiURL = import.meta.env.VITE_API_URL;
+  const res = await fetch(`${apiURL}/api/contact`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

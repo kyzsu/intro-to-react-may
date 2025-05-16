@@ -5,7 +5,8 @@ export const usePizzaoftheDay = () => {
 
   useEffect(() => {
     async function fetchPizzaoftheDay() {
-      const response = await fetch("/api/pizza-of-the-day");
+      const apiURL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${apiURL}/api/pizza-of-the-day`);
       const resJson = await response.json();
       setPizzaoftheDay(resJson);
     }
